@@ -1,0 +1,710 @@
+[
+    {
+        "id": "c4385d4c.dea68",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "d1719d19.e3a8b",
+        "type": "tab",
+        "label": "Flow 2"
+    },
+    {
+        "id": "7c690b69.1f1754",
+        "type": "tab",
+        "label": "Flow 1"
+    },
+    {
+        "id": "1151fb17.2781a5",
+        "type": "tab",
+        "label": "Teste MQTT"
+    },
+    {
+        "id": "a3064dbf.f8d61",
+        "type": "tab",
+        "label": "Flow 3"
+    },
+    {
+        "id": "b081ddf0.48934",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "COM3",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": false
+    },
+    {
+        "id": "ae31381b.dc0118",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "10.3.2.41",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "5fde199c.4293d8",
+        "type": "http in",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 167,
+        "y": 234,
+        "wires": [
+            [
+                "8614bff.156174"
+            ]
+        ]
+    },
+    {
+        "id": "616a717a.4afd7",
+        "type": "http response",
+        "z": "c4385d4c.dea68",
+        "name": "Hello",
+        "x": 464,
+        "y": 231,
+        "wires": []
+    },
+    {
+        "id": "8614bff.156174",
+        "type": "change",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"msg\":\"Hello Wold!\"}",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "header",
+                "pt": "msg",
+                "to": "{\"Content-Type\":\"application/json\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 303,
+        "y": 321,
+        "wires": [
+            [
+                "616a717a.4afd7"
+            ]
+        ]
+    },
+    {
+        "id": "23a13d04.0954e2",
+        "type": "http in",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "url": "/led",
+        "method": "put",
+        "swaggerDoc": "",
+        "x": 139,
+        "y": 462,
+        "wires": [
+            [
+                "a616312b.62c36",
+                "72c71818.f228d8"
+            ]
+        ]
+    },
+    {
+        "id": "a616312b.62c36",
+        "type": "http response",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "x": 331.5,
+        "y": 561,
+        "wires": []
+    },
+    {
+        "id": "f296327f.23db3",
+        "type": "http request",
+        "z": "d1719d19.e3a8b",
+        "name": "",
+        "method": "PUT",
+        "ret": "txt",
+        "url": "localhost:1880/led",
+        "tls": "",
+        "x": 390.5,
+        "y": 221,
+        "wires": [
+            [
+                "2f340925.ab4ae6"
+            ]
+        ]
+    },
+    {
+        "id": "10632de8.5beed2",
+        "type": "inject",
+        "z": "d1719d19.e3a8b",
+        "name": "",
+        "topic": "",
+        "payload": "{\"value\":255}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 141.5,
+        "y": 220,
+        "wires": [
+            [
+                "f296327f.23db3"
+            ]
+        ]
+    },
+    {
+        "id": "72c71818.f228d8",
+        "type": "change",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "led",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 339.5,
+        "y": 424,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e950ea4e.9bf2c8",
+        "type": "inject",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "topic": "",
+        "payload": "led",
+        "payloadType": "flow",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 145,
+        "y": 693,
+        "wires": [
+            [
+                "dc726b31.c10388"
+            ]
+        ]
+    },
+    {
+        "id": "dc726b31.c10388",
+        "type": "debug",
+        "z": "c4385d4c.dea68",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 448.5,
+        "y": 688,
+        "wires": []
+    },
+    {
+        "id": "9fb61315.1acf5",
+        "type": "serial in",
+        "z": "7c690b69.1f1754",
+        "name": "",
+        "serial": "b081ddf0.48934",
+        "x": 145.5,
+        "y": 143,
+        "wires": [
+            [
+                "747fe903.d162d8"
+            ]
+        ]
+    },
+    {
+        "id": "747fe903.d162d8",
+        "type": "function",
+        "z": "7c690b69.1f1754",
+        "name": "Received values",
+        "func": "var obj = JSON.parse(msg.payload.trim());\nif(\"luz\" in obj) {\n    msg.payload = obj.luz;\n} else {\n    msg = undefined;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 316.5,
+        "y": 219,
+        "wires": [
+            [
+                "56728d05.f5b884"
+            ]
+        ]
+    },
+    {
+        "id": "56728d05.f5b884",
+        "type": "mqtt out",
+        "z": "7c690b69.1f1754",
+        "name": "",
+        "topic": "fiap/labC/arduino16/luz",
+        "qos": "0",
+        "retain": "false",
+        "broker": "ae31381b.dc0118",
+        "x": 461.5,
+        "y": 128,
+        "wires": []
+    },
+    {
+        "id": "716c48ee.978998",
+        "type": "mqtt in",
+        "z": "7c690b69.1f1754",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "broker": "ae31381b.dc0118",
+        "x": 134,
+        "y": 392,
+        "wires": [
+            [
+                "45d6f77e.297698"
+            ]
+        ]
+    },
+    {
+        "id": "45d6f77e.297698",
+        "type": "function",
+        "z": "7c690b69.1f1754",
+        "name": "Formata cmd LED",
+        "func": "msg.payload = {\"led\": parseInt(msg.payload) };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 462,
+        "wires": [
+            [
+                "e0ab47e0.1bcb68",
+                "f85bdf0a.d1974"
+            ]
+        ]
+    },
+    {
+        "id": "e0ab47e0.1bcb68",
+        "type": "serial out",
+        "z": "7c690b69.1f1754",
+        "name": "",
+        "serial": "b081ddf0.48934",
+        "x": 556,
+        "y": 401,
+        "wires": []
+    },
+    {
+        "id": "f57ebe4b.ad4c7",
+        "type": "mqtt in",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "fiap/labC/arduino16/luz",
+        "qos": "2",
+        "broker": "ae31381b.dc0118",
+        "x": 144,
+        "y": 75,
+        "wires": [
+            [
+                "29d4ac1d.adc8e4"
+            ]
+        ]
+    },
+    {
+        "id": "29d4ac1d.adc8e4",
+        "type": "debug",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 411,
+        "y": 71,
+        "wires": []
+    },
+    {
+        "id": "e6ea3d2e.b5c7",
+        "type": "inject",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 98,
+        "y": 159,
+        "wires": [
+            [
+                "eff5161f.db1848",
+                "27c6868.6bb867a",
+                "a91d5ba7.830d98",
+                "720235ea.d0db8c",
+                "b4c73862.924848"
+            ]
+        ]
+    },
+    {
+        "id": "eff5161f.db1848",
+        "type": "mqtt out",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "retain": "true",
+        "broker": "ae31381b.dc0118",
+        "x": 398,
+        "y": 157,
+        "wires": []
+    },
+    {
+        "id": "6c5a2ec1.45ff7",
+        "type": "inject",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "",
+        "payload": "100",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 97,
+        "y": 203,
+        "wires": [
+            [
+                "eff5161f.db1848",
+                "27c6868.6bb867a",
+                "a91d5ba7.830d98",
+                "720235ea.d0db8c",
+                "b4c73862.924848"
+            ]
+        ]
+    },
+    {
+        "id": "b5f4c07e.bf34",
+        "type": "inject",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "",
+        "payload": "200",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 99,
+        "y": 254,
+        "wires": [
+            [
+                "eff5161f.db1848",
+                "a91d5ba7.830d98",
+                "27c6868.6bb867a",
+                "720235ea.d0db8c",
+                "b4c73862.924848"
+            ]
+        ]
+    },
+    {
+        "id": "88dcf281.43145",
+        "type": "inject",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "",
+        "payload": "255",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 99,
+        "y": 306,
+        "wires": [
+            [
+                "eff5161f.db1848",
+                "27c6868.6bb867a",
+                "a91d5ba7.830d98",
+                "720235ea.d0db8c",
+                "b4c73862.924848"
+            ]
+        ]
+    },
+    {
+        "id": "27c6868.6bb867a",
+        "type": "mqtt out",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "retain": "true",
+        "broker": "ae31381b.dc0118",
+        "x": 396,
+        "y": 215,
+        "wires": []
+    },
+    {
+        "id": "a91d5ba7.830d98",
+        "type": "mqtt out",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "retain": "true",
+        "broker": "ae31381b.dc0118",
+        "x": 401,
+        "y": 272,
+        "wires": []
+    },
+    {
+        "id": "720235ea.d0db8c",
+        "type": "mqtt out",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "retain": "true",
+        "broker": "ae31381b.dc0118",
+        "x": 400,
+        "y": 332,
+        "wires": []
+    },
+    {
+        "id": "b4c73862.924848",
+        "type": "mqtt out",
+        "z": "1151fb17.2781a5",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "retain": "true",
+        "broker": "ae31381b.dc0118",
+        "x": 399,
+        "y": 399,
+        "wires": []
+    },
+    {
+        "id": "3125c156.121a4e",
+        "type": "inject",
+        "z": "7c690b69.1f1754",
+        "name": "",
+        "topic": "",
+        "payload": "{\"luz\":600}",
+        "payloadType": "str",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "x": 116,
+        "y": 268,
+        "wires": [
+            [
+                "747fe903.d162d8"
+            ]
+        ]
+    },
+    {
+        "id": "f85bdf0a.d1974",
+        "type": "debug",
+        "z": "7c690b69.1f1754",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 559.5,
+        "y": 532,
+        "wires": []
+    },
+    {
+        "id": "e7368224.df788",
+        "type": "http in",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "url": "/led2",
+        "method": "put",
+        "swaggerDoc": "",
+        "x": 119,
+        "y": 175,
+        "wires": [
+            [
+                "ddd9f2f1.4b2fd"
+            ]
+        ]
+    },
+    {
+        "id": "42f03bfb.c5d6e4",
+        "type": "switch",
+        "z": "a3064dbf.f8d61",
+        "name": "Status Code == 200",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 514,
+        "y": 190,
+        "wires": [
+            [
+                "859f6fcf.b338c"
+            ]
+        ]
+    },
+    {
+        "id": "ddd9f2f1.4b2fd",
+        "type": "function",
+        "z": "a3064dbf.f8d61",
+        "name": "Parse LED value",
+        "func": "if(\"value\" in msg.payload){\n    msg.payload = msg.payload.value;\n    msg.statusCode = 200;\n}else{\n    msg.payload = \"Bad Request Format\";\n    msg.statusCode = 400;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 296,
+        "y": 266,
+        "wires": [
+            [
+                "ccdab621.d55e98",
+                "42f03bfb.c5d6e4"
+            ]
+        ]
+    },
+    {
+        "id": "ccdab621.d55e98",
+        "type": "http response",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "x": 506,
+        "y": 342,
+        "wires": []
+    },
+    {
+        "id": "859f6fcf.b338c",
+        "type": "mqtt out",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "retain": "true",
+        "broker": "ae31381b.dc0118",
+        "x": 660,
+        "y": 63,
+        "wires": []
+    },
+    {
+        "id": "cb7ae02b.2f58a",
+        "type": "http request",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "method": "PUT",
+        "ret": "txt",
+        "url": "localhost:1880/led2",
+        "tls": "",
+        "x": 403,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f6c8e6d8.66b468",
+        "type": "inject",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "topic": "",
+        "payload": "{\"value\":255}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 154,
+        "y": 479,
+        "wires": [
+            [
+                "cb7ae02b.2f58a"
+            ]
+        ]
+    },
+    {
+        "id": "2f340925.ab4ae6",
+        "type": "debug",
+        "z": "d1719d19.e3a8b",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 624.5,
+        "y": 223,
+        "wires": []
+    },
+    {
+        "id": "53529647.47cc08",
+        "type": "inject",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "topic": "",
+        "payload": "{\"value\":600}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 135,
+        "y": 563,
+        "wires": [
+            [
+                "cb7ae02b.2f58a"
+            ]
+        ]
+    },
+    {
+        "id": "19405577.c89d5b",
+        "type": "mqtt in",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "topic": "fiap/labC/arduino16/led",
+        "qos": "1",
+        "broker": "ae31381b.dc0118",
+        "x": 159,
+        "y": 673,
+        "wires": [
+            [
+                "4417f805.c74b38"
+            ]
+        ]
+    },
+    {
+        "id": "4417f805.c74b38",
+        "type": "debug",
+        "z": "a3064dbf.f8d61",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 487,
+        "y": 666,
+        "wires": []
+    }
+]
